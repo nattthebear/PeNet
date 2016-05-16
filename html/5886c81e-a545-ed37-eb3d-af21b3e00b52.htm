@@ -19,6 +19,8 @@
                 Returns true if the Export directory is valid.
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="d67e3987-a934-4af6-a59f-2fafaf674c00.htm">HasValidImportDir</a></td><td><div class="summary">
                 Returns true if the Import directory is valid.
+            </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="bfd0e2dd-9738-8b9b-a817-487d513342a3.htm">HasValidRelocDir</a></td><td><div class="summary">
+            Returns true if the Relocation Directory is valid.
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="1a92ed9d-7aa6-44d7-6ad3-a0238a80330e.htm">HasValidResourceDir</a></td><td><div class="summary">
                 Returns true if the Resource directory is valid.
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="3af067d4-3911-215f-3341-75a573a7fff7.htm">HasValidSecurityDir</a></td><td><div class="summary">
@@ -31,6 +33,8 @@
                 Access the IMAGE_IMPORT_DESCRIPTOR array of the PE file.
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="6b3e0c85-8da6-bdbb-f183-a21016616e3e.htm">ImageNtHeaders</a></td><td><div class="summary">
                 Access the IMAGE_NT_HEADERS of the PE file.
+            </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="6a70b284-2a67-bc69-e77b-3c96cb27d327.htm">ImageRelocationDirectory</a></td><td><div class="summary">
+            Access the IMAGE_BASE_RELOCATION array of the PE file.
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="6fdb2e20-748e-da57-b7bc-7931d1122d24.htm">ImageResourceDirectory</a></td><td><div class="summary">
                 Access the IMAGE_RESOURCE_DIRECTORY of the PE file.
             </div></td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubproperty.gif" alt="Public property" title="Public property" /></td><td><a href="5f2235aa-da84-faae-3015-83d574e810c0.htm">ImageSectionHeaders</a></td><td><div class="summary">
@@ -92,10 +96,7 @@
                 oleaut32, ws2_32 and wsock32 can resolve ordinals to functions names.
                 The implementation is equal to the python module "pefile" 1.2.10-139
                 https://code.google.com/p/pefile/
-            </div></td></tr><tr data="public;inherited;notNetfw;"><td><img src="../icons/pubmethod.gif" alt="Public method" title="Public method" /></td><td><a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a></td><td><div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubmethod.gif" alt="Public method" title="Public method" /></td><td><a href="c9fffdf1-f808-bda1-1068-93b203b59de7.htm">GetUnwindInfo</a></td><td><div class="summary">
-                Get the UNWIND_INFO from a runtime function form the
-                Exception header in x64 applications.
-            </div></td></tr><tr data="public;static;declared;notNetfw;"><td><img src="../icons/pubmethod.gif" alt="Public method" title="Public method" /><img src="../icons/static.gif" alt="Static member" title="Static member" /></td><td><a href="3a85844c-8999-6c7e-2ccc-b71bc17c85c2.htm">Is32BitPeFile</a></td><td><div class="summary">
+            </div></td></tr><tr data="public;inherited;notNetfw;"><td><img src="../icons/pubmethod.gif" alt="Public method" title="Public method" /></td><td><a href="http://msdn2.microsoft.com/en-us/library/dfwy45w9" target="_blank">GetType</a></td><td><div class="summary">Gets the <a href="http://msdn2.microsoft.com/en-us/library/42892f65" target="_blank">Type</a> of the current instance.</div> (Inherited from <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.)</td></tr><tr data="public;static;declared;notNetfw;"><td><img src="../icons/pubmethod.gif" alt="Public method" title="Public method" /><img src="../icons/static.gif" alt="Static member" title="Static member" /></td><td><a href="3a85844c-8999-6c7e-2ccc-b71bc17c85c2.htm">Is32BitPeFile</a></td><td><div class="summary">
             Returns if the file is a PE file and 32 Bit.
             </div></td></tr><tr data="public;static;declared;notNetfw;"><td><img src="../icons/pubmethod.gif" alt="Public method" title="Public method" /><img src="../icons/static.gif" alt="Static member" title="Static member" /></td><td><a href="a8a4acf5-8264-757e-629d-69d78ec4504d.htm">Is64BitPeFile</a></td><td><div class="summary">
             Returns if the file is a PE file and 64 Bit.
@@ -112,4 +113,3 @@
 							</th><th>Name</th><th>Description</th></tr><tr data="public;declared;notNetfw;"><td><img src="../icons/pubfield.gif" alt="Public field" title="Public field" /></td><td><a href="5bb38294-43f1-98d3-920e-6c32af40f859.htm">Buff</a></td><td><div class="summary">
                 The PE binary as a byte array.
             </div></td></tr></table><a href="#PageHeader">Top</a></div><div class="collapsibleAreaRegion" id="seeAlsoSection"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('ID7RB')" onkeypress="SectionExpandCollapse_CheckKey('ID7RB', event)" tabindex="0"><img id="ID7RBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />See Also</span></div><div id="ID7RBSection" class="collapsibleSection"><h4 class="subHeading">Reference</h4><div class="seeAlsoStyle"><a href="90b9b914-7758-24b5-25c5-e35fd8437218.htm">PeNet Namespace</a></div></div></div></div><div id="pageFooter" class="pageFooter"><p><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a></p> </div></body></html>
-
