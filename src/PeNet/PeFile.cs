@@ -2,7 +2,8 @@
 
 namespace PeNet
 {
-    public class Class1
+    public class PEFile
     {
+
     }
 }

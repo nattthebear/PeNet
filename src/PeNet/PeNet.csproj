@@ -1,7 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Description>PeNet is a Windows PE (Portable Executable) parser written in .Net. Futhermore it has analysis features often used in PE header and malware research.</Description>
+    <Company />
+    <Authors>Stefan Hausotte</Authors>
+    <Copyright>Stefan Hausotte</Copyright>
+    <RepositoryUrl>https://github.com/secana/PeNet</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/secana/PeNet/wiki</PackageProjectUrl>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.html</PackageLicenseUrl>
+    <PackageTags>PE Header .Net Portable Executable COFF COM Parser</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.4\PeNet.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
