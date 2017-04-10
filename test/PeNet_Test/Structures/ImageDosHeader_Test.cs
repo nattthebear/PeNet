@@ -9,8 +9,9 @@ namespace PeNet_Test.Structures
         public void Constructor_RawDosHeader_ParsesAllPropertiesCorrectly()
         {
             var testIdh = new TestStructures.ImageDosHeader();
-            var idh = new ImageDosHeader(testIdh.RawBytes, 0);
-            
+
+            var idh = new ImageDosHeader(testIdh.ToBytes(), 0);
+
             Assert.Equal(testIdh.e_magic, idh.e_magic);
             Assert.Equal(testIdh.e_cblp, idh.e_cblp);
             Assert.Equal(testIdh.e_cp, idh.e_cp);

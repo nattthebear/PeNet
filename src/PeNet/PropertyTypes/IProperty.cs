@@ -2,11 +2,11 @@
 
 namespace PeNet.PropertyTypes
 {
+
     /// <summary>
     /// Represents a standard property in the header structures.
     /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    public interface IProperty<TValue> : IEquatable<IProperty<TValue>>
+    public interface IProperty: IComparable
     {
         /// <summary>
         /// Offset of the property in on disk.
@@ -18,6 +18,21 @@ namespace PeNet.PropertyTypes
         /// </summary>
         uint Size { get; }
 
+        /// <summary>
+        /// Serializes the property value to
+        /// a byte array.
+        /// </summary>
+        /// <returns>Property value as a byte array.</returns>
+        byte[] ToBytes();
+    }
+
+
+    /// <summary>
+    /// Represents a standard property in the header structures.
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    public interface IProperty<TValue> : IProperty, IEquatable<IProperty<TValue>>
+    {
         /// <summary>
         /// The value of the property.
         /// </summary>
