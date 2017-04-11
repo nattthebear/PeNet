@@ -1,5 +1,4 @@
-﻿using System;
-using PeNet.Utilities;
+﻿using PeNet.Utilities;
 
 namespace PeNet.PropertyTypes
 {
