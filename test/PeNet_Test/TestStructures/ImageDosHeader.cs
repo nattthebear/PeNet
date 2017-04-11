@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using PeNet.PropertyTypes;
+﻿using PeNet.PropertyTypes;
 using PeNet.Structures;
 
 namespace PeNet_Test.TestStructures
 {
-    public class ImageDosHeader : IImageDosHeader
+    public class ImageDosHeader : PEStructure, IImageDosHeader
     {
         public IProperty<ushort> e_magic => new PropertyUShort(0x00, 2, 0x1100);
         public IProperty<ushort> e_cblp => new PropertyUShort(0x02, 2, 0x3322);
@@ -45,28 +42,5 @@ namespace PeNet_Test.TestStructures
             0xbbcc
         });
         public IProperty<uint> e_lfanew => new PropertyUInt(0x3c, 4, 0x11ffeedd);
-
-        public byte[] ToBytes()
-        {
-            var properties = GetType().GetProperties().Where(p => typeof(IProperty).IsAssignableFrom(p.PropertyType)).ToList();
-            var propertyObjects = new List<IProperty>();
-
-            // Convert the properties to a list of IProperty objects.
-            foreach (var p in properties)
-            {
-                propertyObjects.Add((IProperty) p.GetValue(this));
-            }
-
-            // Sort properties based on their offset.
-            propertyObjects = propertyObjects.OrderBy(p => p.ValueOffset).ToList();
-
-            var bytes = new List<byte>();
-            foreach (var p in propertyObjects)
-            {
-                bytes.AddRange(p.ToBytes());
-            }
-
-            return bytes.ToArray();
-        }
     }
 }

@@ -10,7 +10,7 @@ namespace PeNet_Test.Structures
         {
             var testIdh = new TestStructures.ImageDosHeader();
 
-            var idh = new ImageDosHeader(testIdh.ToBytes(), 0);
+            var idh = new ImageDosHeader(testIdh.SerializeToBytes(), 0);
 
             Assert.Equal(testIdh.e_magic, idh.e_magic);
             Assert.Equal(testIdh.e_cblp, idh.e_cblp);
