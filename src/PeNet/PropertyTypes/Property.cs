@@ -8,14 +8,20 @@ namespace PeNet.PropertyTypes
     public abstract class Property<TValue> : IProperty<TValue>
     {
         /// <summary>
-        /// Parser helper object.
+        /// Buffer containing the PE header.
         /// </summary>
-        protected readonly PropertyValueParser _propertyValueParser;
+        protected byte[] _buffer { get; }
+
+        /// <summary>
+        /// Offset of the structure in the PE header
+        /// to which the property belongs.
+        /// </summary>
+        protected ulong _structOffset { get; }
 
         /// <summary>
         /// Offset of the property in on disk.
         /// </summary>
-        public ulong RawOffset { get; }
+        public ulong ValueOffset { get; }
 
         /// <summary>
         /// Size of the value type in bytes.
@@ -30,29 +36,34 @@ namespace PeNet.PropertyTypes
         /// <summary>
         /// Create a new property object.
         /// </summary>
-        /// <param name="propertyValueParser">Parser helper object.</param>
-        /// <param name="size">Size of the value in bytes.</param>
-        protected Property(PropertyValueParser propertyValueParser, uint size)
+        /// <param name="valueOffset">Offset of the value in the structure
+        /// to which the property belongs.</param>
+        /// <param name="size">Size of the value type in bytes.</param>
+        /// <param name="value">The value of the property.</param>
+        protected Property(ulong valueOffset, uint size, TValue value)
         {
-            _propertyValueParser = propertyValueParser;
             Size = size;
-            RawOffset = _propertyValueParser.CurrentOffset;
+            ValueOffset = valueOffset;
+            Value = value;
         }
 
         /// <summary>
         /// Create a new property object.
         /// </summary>
-        /// <param name="structOffset">Offset of the value in the structure
+        /// <param name="structOffset">Offset of the structure in the PE header
+        /// to which the property belongs.</param>
+        /// <param name="valueOffset">Offset of the value in the structure
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
-        /// <param name="value">The value of the property.</param>
-        protected Property(ulong structOffset, uint size, TValue value)
+        /// <param name="buffer">Buffer containing a PE structure.</param>
+        protected Property(byte[] buffer, ulong structOffset, ulong valueOffset, uint size)
         {
             Size = size;
-            RawOffset = structOffset;
-            Value = value;
+            _buffer = buffer;
+            _structOffset = structOffset;
+            ValueOffset = valueOffset;
         }
-             
+
 
         /// <summary>
         /// Parses the value from the byte 
@@ -76,7 +87,7 @@ namespace PeNet.PropertyTypes
         /// <returns>True if equal, else false.</returns>
         public virtual bool Equals(IProperty<TValue> other)
         {
-            return RawOffset == other.RawOffset
+            return ValueOffset == other.ValueOffset
                    && Size == other.Size
                    && Value.Equals(other.Value);
         }
@@ -101,8 +112,8 @@ namespace PeNet.PropertyTypes
         {
             unchecked
             {
-                var hashCode = (_propertyValueParser != null ? _propertyValueParser.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ RawOffset.GetHashCode();
+                var hashCode = Value.GetHashCode();
+                hashCode = (hashCode * 397) ^ ValueOffset.GetHashCode();
                 hashCode = (hashCode * 397) ^ (int) Size;
                 hashCode = (hashCode * 397) ^ EqualityComparer<TValue>.Default.GetHashCode(Value);
                 return hashCode;
@@ -125,9 +136,9 @@ namespace PeNet.PropertyTypes
             if (other == null)
                 return 1;
 
-            if (RawOffset == other.RawOffset)
+            if (ValueOffset == other.ValueOffset)
                 return 0;
-            if (RawOffset < other.RawOffset)
+            if (ValueOffset < other.ValueOffset)
                 return -1;
             return 1;
         }

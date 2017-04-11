@@ -7,27 +7,34 @@ namespace PeNet.PropertyTypes
     /// Represents a standard property in the header structures,
     /// where the value is of the type "ushort".
     /// </summary>
+    [PropertyType(typeof(ushort))]
     public sealed class PropertyUShort : Property<ushort>
     {
         /// <summary>
-        /// Create a new ushort property.
+        /// Create a new property object.
         /// </summary>
-        /// <param name="propertyValueParser">Parser helper object.</param>
-        public PropertyUShort(PropertyValueParser propertyValueParser)
-            : base(propertyValueParser, sizeof(ushort))
-        {
-            Value = ParseValue();
-        }
+        /// <param name="valueOffset">Offset of the value in the structure
+        /// to which the property belongs.</param>
+        /// <param name="size">Size of the value type in bytes.</param>
+        /// <param name="value">The value of the property.</param>
+        public PropertyUShort(ulong valueOffset, uint size, ushort value)
+            : base(valueOffset, size, value) { }
 
         /// <summary>
         /// Create a new property object.
         /// </summary>
-        /// <param name="structOffset">Offset of the value in the structure
+        /// <param name="structOffset">Offset of the structure in the PE header
+        /// to which the property belongs.</param>
+        /// <param name="valueOffset">Offset of the value in the structure
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
-        /// <param name="value">The value of the property.</param>
-        public PropertyUShort(ulong structOffset, uint size, ushort value)
-            : base(structOffset, size, value) { }
+        /// <param name="buffer">Buffer containing a PE structure.</param>
+        public PropertyUShort(byte[] buffer, ulong structOffset, ulong valueOffset, uint size)
+            : base(buffer, structOffset, valueOffset, size)
+        {
+            Value = ParseValue();
+        }
+
 
         /// <summary>
         /// Parses the value from the byte 
@@ -36,11 +43,7 @@ namespace PeNet.PropertyTypes
         /// <returns>The property value.</returns>
         protected override ushort ParseValue()
         {
-            var value = _propertyValueParser.Buffer.BytesToUInt16(_propertyValueParser.CurrentOffset);
-
-            Console.WriteLine($"Read ushort {value:X2} from offset: {_propertyValueParser.CurrentOffset}");
-
-            _propertyValueParser.CurrentOffset += sizeof(ushort);
+            var value = _buffer.BytesToUInt16(_structOffset + ValueOffset);
             return value;
         }
 

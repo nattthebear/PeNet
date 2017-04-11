@@ -7,31 +7,36 @@ namespace PeNet.PropertyTypes
     /// Represents a standard property in the header structures,
     /// where the value is of the type "ushort[]".
     /// </summary>
+    [PropertyType(typeof(ushort[]))]
     public sealed class PropertyUShortArray : Property<ushort[]>
     {
         private readonly uint _count;
 
         /// <summary>
-        /// Create a new 
+        /// Create a new property object.
         /// </summary>
-        /// <param name="propertyValueParser"></param>
-        /// <param name="count"></param>
-        public PropertyUShortArray(PropertyValueParser propertyValueParser, uint count) 
-            : base(propertyValueParser, sizeof(ushort) * count)
+        /// <param name="structOffset">Offset of the structure in the PE header
+        /// to which the property belongs.</param>
+        /// <param name="valueOffset">Offset of the value in the structure
+        /// to which the property belongs.</param>
+        /// <param name="size">Size of the value type in bytes.</param>
+        /// <param name="buffer">Buffer containing a PE structure.</param>
+        public PropertyUShortArray(byte[] buffer, ulong structOffset, ulong valueOffset, uint size)
+            : base(buffer, structOffset, valueOffset, size)
         {
-            _count = count;
+            _count = size / sizeof(ushort);
             Value = ParseValue();
         }
 
         /// <summary>
         /// Create a new property object.
         /// </summary>
-        /// <param name="structOffset">Offset of the value in the structure
+        /// <param name="valueOffset">Offset of the value in the structure
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="value">The value of the property.</param>
-        public PropertyUShortArray(ulong structOffset, uint size, ushort[] value)
-            : base(structOffset, size, value) { }
+        public PropertyUShortArray(ulong valueOffset, uint size, ushort[] value)
+            : base(valueOffset, size, value) { }
 
         /// <summary>
         /// Parses the value from the byte 
@@ -43,8 +48,7 @@ namespace PeNet.PropertyTypes
             var array = new ushort[_count];
             for (var i = 0; i < _count; i++)
             {
-                array[i] = _propertyValueParser.Buffer.BytesToUInt16(_propertyValueParser.CurrentOffset);
-                _propertyValueParser.CurrentOffset += sizeof(ushort);
+                array[i] = _buffer.BytesToUInt16(_structOffset + ValueOffset + (ulong) i * sizeof(ushort));
             }
             return array;
         }
@@ -67,7 +71,7 @@ namespace PeNet.PropertyTypes
         /// <returns>True if equal, else false.</returns>
         public override bool Equals(IProperty<ushort[]> other)
         {
-            return RawOffset == other.RawOffset
+            return ValueOffset == other.ValueOffset
                    && Size == other.Size
                    && Value.ListCompare(other.Value);
         }

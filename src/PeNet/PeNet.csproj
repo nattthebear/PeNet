@@ -16,4 +16,9 @@
     <DocumentationFile>bin\Debug\netstandard1.4\PeNet.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+  </ItemGroup>
+
 </Project>

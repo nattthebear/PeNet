@@ -58,7 +58,7 @@ namespace PeNet_Test.TestStructures
             }
 
             // Sort properties based on their offset.
-            propertyObjects = propertyObjects.OrderBy(p => p.RawOffset).ToList();
+            propertyObjects = propertyObjects.OrderBy(p => p.ValueOffset).ToList();
 
             var bytes = new List<byte>();
             foreach (var p in propertyObjects)

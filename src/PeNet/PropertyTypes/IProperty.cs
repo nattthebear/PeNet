@@ -11,7 +11,7 @@ namespace PeNet.PropertyTypes
         /// <summary>
         /// Offset of the property in on disk.
         /// </summary>
-        ulong RawOffset { get; }
+        ulong ValueOffset { get; }
 
         /// <summary>
         /// Size of the value type in bytes.
