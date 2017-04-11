@@ -21,7 +21,7 @@ namespace PeNet.PropertyTypes
         /// <summary>
         /// Offset of the property in on disk.
         /// </summary>
-        public ulong ValueOffset { get; }
+        public uint ValueOffset { get; }
 
         /// <summary>
         /// Size of the value type in bytes.
@@ -40,7 +40,7 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="value">The value of the property.</param>
-        protected Property(ulong valueOffset, uint size, TValue value)
+        protected Property(uint valueOffset, uint size, TValue value)
         {
             Size = size;
             ValueOffset = valueOffset;
@@ -56,7 +56,7 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="buffer">Buffer containing a PE structure.</param>
-        protected Property(byte[] buffer, ulong structOffset, ulong valueOffset, uint size)
+        protected Property(byte[] buffer, uint structOffset, uint valueOffset, uint size)
         {
             Size = size;
             _buffer = buffer;

@@ -15,7 +15,7 @@ namespace PeNet.PropertyTypes
         /// <param name="valueOffset">Offset of the property in the PE
         ///     structure it belongs to.</param>
         /// <param name="valueSize">Size of the value in bytes.</param>
-        public PropertyDescription(ulong valueOffset, uint valueSize)
+        public PropertyDescription(uint valueOffset, uint valueSize)
         {
             ValueOffset = valueOffset;
             ValueSize = valueSize;
@@ -25,7 +25,7 @@ namespace PeNet.PropertyTypes
         /// Offset of the property in the PE 
         /// structure it belongs to.
         /// </summary>
-        public ulong ValueOffset { get; }
+        public uint ValueOffset { get; }
 
         /// <summary>
         /// Size of the value in bytes.

@@ -21,7 +21,7 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="buffer">Buffer containing a PE structure.</param>
-        public PropertyUShortArray(byte[] buffer, ulong structOffset, ulong valueOffset, uint size)
+        public PropertyUShortArray(byte[] buffer, uint structOffset, uint valueOffset, uint size)
             : base(buffer, structOffset, valueOffset, size)
         {
             _count = size / sizeof(ushort);
@@ -35,7 +35,7 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="value">The value of the property.</param>
-        public PropertyUShortArray(ulong valueOffset, uint size, ushort[] value)
+        public PropertyUShortArray(uint valueOffset, uint size, ushort[] value)
             : base(valueOffset, size, value) { }
 
         /// <summary>

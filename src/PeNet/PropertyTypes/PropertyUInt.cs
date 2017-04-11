@@ -18,7 +18,7 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="buffer">Buffer containing a PE structure.</param>
-        public PropertyUInt(byte[] buffer, ulong structOffset, ulong valueOffset, uint size)
+        public PropertyUInt(byte[] buffer, uint structOffset, uint valueOffset, uint size)
             : base(buffer, structOffset, valueOffset, size)
         {
             Value = ParseValue();
@@ -31,7 +31,7 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="value">The value of the property.</param>
-        public PropertyUInt(ulong valueOffset, uint size, uint value)
+        public PropertyUInt(uint valueOffset, uint size, uint value)
             : base(valueOffset, size, value) { }
 
         /// <summary>
