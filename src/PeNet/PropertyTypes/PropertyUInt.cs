@@ -35,6 +35,15 @@ namespace PeNet.PropertyTypes
             : base(valueOffset, size, value) { }
 
         /// <summary>
+        /// Create a new property object.
+        /// </summary>
+        /// <param name="valueOffset">Offset of the value in the structure
+        /// to which the property belongs.</param>
+        /// <param name="value">The value of the property.</param>
+        public PropertyUInt(uint valueOffset, uint value)
+            : base(valueOffset, sizeof(uint), value) { }
+
+        /// <summary>
         /// Parses the value from the byte 
         /// array.
         /// </summary>

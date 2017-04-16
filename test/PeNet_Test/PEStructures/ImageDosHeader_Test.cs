@@ -1,12 +1,13 @@
-﻿using PeNet.Structures;
+﻿using PeNet.PEStructures;
+using PeNet.PEStructures.Implementation;
 using Xunit;
 
-namespace PeNet_Test.Structures
+namespace PeNet_Test.PEStructures
 {
     public class ImageDosHeader_Test
     {
         [Fact]
-        public void Constructor_RawDosHeader_ParsesAllPropertiesCorrectly()
+        public void ImageDosHeader_RawDosHeader_SetsAllProperties()
         {
             var testIdh = new TestStructures.ImageDosHeader();
 

@@ -22,6 +22,15 @@ namespace PeNet.PropertyTypes
         /// <summary>
         /// Create a new property object.
         /// </summary>
+        /// <param name="valueOffset">Offset of the value in the structure
+        /// to which the property belongs.</param>
+        /// <param name="value">The value of the property.</param>
+        public PropertyUShort(uint valueOffset, ushort value)
+            : base(valueOffset, sizeof(ushort), value) { }
+
+        /// <summary>
+        /// Create a new property object.
+        /// </summary>
         /// <param name="structOffset">Offset of the structure in the PE header
         /// to which the property belongs.</param>
         /// <param name="valueOffset">Offset of the value in the structure

@@ -1,6 +1,6 @@
 ﻿using PeNet.PropertyTypes;
 
-namespace PeNet.Structures
+namespace PeNet.PEStructures
 {
     /// <summary>
     ///     The IMAGE_DOS_HEADER with which every PE file starts.

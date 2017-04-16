@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using PeNet.PropertyTypes;
 
-namespace PeNet.Structures
+namespace PeNet.PEStructures
 {
     /// <summary>
     /// Abstract PE header structure.
