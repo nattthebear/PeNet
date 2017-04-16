@@ -62,6 +62,9 @@ namespace PeNet.PropertyTypes
         /// <returns>Property value as a byte array.</returns>
         public override byte[] ToBytes()
         {
+            // TODO: Find a generic solution for the problem
+            // Only ULong needs this. For the other types the "size" 
+            // stuff can be removed
             if (Size == sizeof(uint))
                 return ((uint) Value).ToBytes();
 
