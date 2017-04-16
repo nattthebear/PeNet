@@ -9,7 +9,7 @@ namespace PeNet.PEStructures
     /// <summary>
     /// Abstract PE header structure.
     /// </summary>
-    public abstract class PEStructure
+    public abstract class PEStructure : IEquatable<PEStructure>
     {
         /// <summary>
         /// Buffer containing the PE header structure.
@@ -45,17 +45,7 @@ namespace PeNet.PEStructures
         /// <returns>PE structure as a byte array.</returns>
         public byte[] SerializeToBytes()
         {
-            var properties = GetType().GetProperties().Where(p => typeof(IProperty).IsAssignableFrom(p.PropertyType)).ToList();
-            var propertyObjects = new List<IProperty>();
-
-            // Convert the properties to a list of IProperty objects.
-            foreach (var p in properties)
-            {
-                propertyObjects.Add((IProperty)p.GetValue(this));
-            }
-
-            // Sort properties based on their offset.
-            propertyObjects = propertyObjects.OrderBy(p => p.ValueOffset).ToList();
+            var propertyObjects = GetSortedProperties();
 
             var bytes = new List<byte>();
             foreach (var p in propertyObjects)
@@ -64,6 +54,22 @@ namespace PeNet.PEStructures
             }
 
             return bytes.ToArray();
+        }
+
+        private List<IProperty> GetSortedProperties()
+        {
+            var properties = GetType().GetProperties().Where(p => typeof(IProperty).IsAssignableFrom(p.PropertyType)).ToList();
+            var propertyObjects = new List<IProperty>();
+
+            // Convert the properties to a list of IProperty objects.
+            foreach (var p in properties)
+            {
+                propertyObjects.Add((IProperty) p.GetValue(this));
+            }
+
+            // Sort properties based on their offset.
+            propertyObjects = propertyObjects.OrderBy(p => p.ValueOffset).ToList();
+            return propertyObjects;
         }
 
         /// <summary>
@@ -118,6 +124,71 @@ namespace PeNet.PEStructures
         public override string ToString()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Compares all properties of two objects
+        /// from the type "PEStructure".
+        /// </summary>
+        /// <param name="other">PEStructure to compate with.</param>
+        /// <returns>True if all properties are equal, false if not.</returns>
+        public bool Equals(PEStructure other)
+        {
+            var ownProperties = GetSortedProperties();
+            var otherProperties = other.GetSortedProperties();
+
+            if (ownProperties.Count != otherProperties.Count)
+                return false;
+
+            for (var i = 0; i < ownProperties.Count; i++)
+            {
+                if (!ownProperties[i].Equals(otherProperties[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compares all properties of two objects
+        /// from the type "PEStructure".
+        /// </summary>
+        /// <param name="obj">PEStructure to compate with.</param>
+        /// <returns>True if all properties are equal, false if not.</returns>
+        public override bool Equals(object obj)
+        {
+            return Equals((PEStructure) obj);
+        }
+
+        /// <summary>
+        /// Gets a hash code of the object.
+        /// </summary>
+        /// <returns>Hash code.</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Equality operator for the PE structure.
+        /// </summary>
+        /// <param name="s1">A PE structure.</param>
+        /// <param name="s2">Another PE structure.</param>
+        /// <returns>True if the structures are equal, else false.</returns>
+        public static bool operator ==(PEStructure s1, PEStructure s2)
+        {
+            return s1.Equals(s2);
+        }
+
+        /// <summary>
+        /// Inequality operator for the PE structure.
+        /// </summary>
+        /// <param name="s1">A PE structure.</param>
+        /// <param name="s2">Another PE structure.</param>
+        /// <returns>True if the structures are not equal, else false.</returns>
+        public static bool operator !=(PEStructure s1, PEStructure s2)
+        {
+            return !s1.Equals(s2);
         }
     }
 }

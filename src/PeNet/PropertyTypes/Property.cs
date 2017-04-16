@@ -16,7 +16,7 @@ namespace PeNet.PropertyTypes
         /// Offset of the structure in the PE header
         /// to which the property belongs.
         /// </summary>
-        protected ulong _structOffset { get; }
+        protected uint _structOffset { get; }
 
         /// <summary>
         /// Offset of the property in on disk.

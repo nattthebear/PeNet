@@ -29,6 +29,38 @@ namespace PeNet_Test.Utilities
         }
 
         [Fact]
+        public void BytesToUInt64_BufferAndOffset_CorrectUInt()
+        {
+            var buff = new byte[]
+            {
+                0x11, 0x22, 0x33, 0x44, 0x55,
+                0x11, 0x22, 0x33, 0x44, 0x55, 0x66
+            };
+
+            var offset = 1u;
+
+            var actual = buff.BytesToUInt64(offset);
+
+            Assert.Equal(0x4433221155443322u, actual);
+        }
+
+        [Fact]
+        public void BytesToUInt64_BufferAndOffsetAndNumOfBytes_CorrectUInt()
+        {
+            var buff = new byte[]
+            {
+                0x11, 0x22, 0x33, 0x44, 0x55,
+                0x11, 0x22, 0x33, 0x44, 0x55, 0x66
+            };
+
+            var offset = 1u;
+
+            var actual = buff.BytesToUInt64(offset, 4);
+
+            Assert.Equal(0x55443322u, actual);
+        }
+
+        [Fact]
         public void ToBytes_UShortArray_CorrectByteArray()
         {
             var inputArray = new ushort[] {0x0011, 0x2233, 0x4455};
@@ -58,6 +90,17 @@ namespace PeNet_Test.Utilities
             var actual = input.ToBytes();
 
             var expected = new byte[] { 0x44, 0x33, 0x22, 0x11 };
+            Assert.True(expected.ListCompare(actual));
+        }
+
+        [Fact]
+        public void ToBytes_ULong_CorrectByteArray()
+        {
+            var input = 0x1122334411223344u;
+
+            var actual = input.ToBytes();
+
+            var expected = new byte[] { 0x44, 0x33, 0x22, 0x11, 0x44, 0x33, 0x22, 0x11 };
             Assert.True(expected.ListCompare(actual));
         }
 

@@ -34,6 +34,36 @@ namespace PeNet.Utilities
         }
 
         /// <summary>
+        ///     Convert 8 consecutive byte in a buffer to an
+        ///     64 bit unsigned integer.
+        /// </summary>
+        /// <param name="buff">Byte buffer.</param>
+        /// <param name="offset">Offset of the highest byte.</param>
+        /// <returns>UInt64 of the byte sequence at offset i.</returns>
+        public static ulong BytesToUInt64(this byte[] buff, ulong offset)
+        {
+            return BytesToUInt64(buff[offset], buff[offset + 1], buff[offset + 2],
+                buff[offset + 3], buff[offset + 4], buff[offset + 5], buff[offset + 6],
+                buff[offset + 7]);
+        }
+
+        /// <summary>
+        ///     Convert up to 8 bytes out of a buffer to an 64 bit unsigned integer.
+        /// </summary>
+        /// <param name="buff">Byte buffer.</param>
+        /// <param name="offset">Offset of the highest byte.</param>
+        /// <param name="numOfBytes">Number of bytes to read.</param>
+        /// <returns>UInt64 of numOfBytes bytes.</returns>
+        public static ulong BytesToUInt64(this byte[] buff, uint offset, uint numOfBytes)
+        {
+            var bytes = new byte[8];
+            for (var i = 0; i < numOfBytes; i++)
+                bytes[i] = buff[offset + i];
+
+            return BitConverter.ToUInt64(bytes, 0);
+        }
+
+        /// <summary>
         ///  Convert an ushort array to 
         ///  an byte array.
         /// </summary>
@@ -75,6 +105,16 @@ namespace PeNet.Utilities
         }
 
         /// <summary>
+        ///     Convert an UInt64 value into an byte array.
+        /// </summary>
+        /// <param name="value">Value</param>
+        /// <returns>4 byte array of the value.</returns>
+        public static byte[] ToBytes(this ulong value)
+        {
+            return BitConverter.GetBytes(value);
+        }
+
+        /// <summary>
         /// Compares the quality of the elements of two lists.
         /// </summary>
         /// <param name="first">First list.</param>
@@ -110,6 +150,23 @@ namespace PeNet.Utilities
         private static uint BytesToUInt32(byte b1, byte b2, byte b3, byte b4)
         {
             return BitConverter.ToUInt32(new[] { b1, b2, b3, b4 }, 0);
+        }
+
+        /// <summary>
+        ///     Converts 8 bytes to an 64 bit unsigned integer.
+        /// </summary>
+        /// <param name="b1">Highest byte.</param>
+        /// <param name="b2">Second byte.</param>
+        /// <param name="b3">Third byte.</param>
+        /// <param name="b4">Fourth byte.</param>
+        /// <param name="b5">Fifth byte.</param>
+        /// <param name="b6">Sixth byte.</param>
+        /// <param name="b7">Seventh byte.</param>
+        /// <param name="b8">Lowest byte.</param>
+        /// <returns>UInt64 of the input bytes.</returns>
+        private static ulong BytesToUInt64(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8)
+        {
+            return BitConverter.ToUInt64(new[] { b1, b2, b3, b4, b5, b6, b7, b8 }, 0);
         }
     }
 }
