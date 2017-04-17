@@ -64,7 +64,9 @@ namespace PeNet.PEStructures
             // Convert the properties to a list of IProperty objects.
             foreach (var p in properties)
             {
-                propertyObjects.Add((IProperty) p.GetValue(this));
+                var pObject = (IProperty) p.GetValue(this);
+                if(pObject != null)
+                    propertyObjects.Add(pObject);
             }
 
             // Sort properties based on their offset.
@@ -84,6 +86,8 @@ namespace PeNet.PEStructures
             foreach (var p in properties)
             {
                 var description = p.GetCustomAttribute(typeof(PropertyDescription)) as PropertyDescription;
+                if(description == null)
+                    continue;
                 propertyTuples.Add(new Tuple<PropertyDescription, PropertyInfo>(description, p));
             }
 

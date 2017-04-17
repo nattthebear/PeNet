@@ -8,7 +8,7 @@ namespace PeNet_Test.PEStructures
         [Fact]
         public void ImageOptionalHeader32_RawOptionalHeader_SetsAllProperties()
         {
-            var testOh = new TestStructures.ImageOptionalHeader();
+            var testOh = new TestStructures.ImageOptionalHeader32();
 
             var ioh = new ImageOptionalHeader32(testOh.SerializeToBytes(), 0);
 
