@@ -161,5 +161,11 @@ namespace PeNet.PEStructures
         ///     Number of directory entries in the remainder of the optional header.
         /// </summary>
         IProperty<uint> NumberOfRvaAndSizes { get; }
+
+        /// <summary>
+        ///     Array of data directories. Num. of data directories must be smaller or 
+        ///     equal to 16.
+        /// </summary>
+        IProperty<IProperty<IImageDataDirectory>[]> DataDirectories { get; }
     }
 }

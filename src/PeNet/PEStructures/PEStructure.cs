@@ -78,7 +78,7 @@ namespace PeNet.PEStructures
         /// Parse and set all properties which implement the
         /// IProperty interface in the PE structure.
         /// </summary>
-        protected void ParseProperties()
+        protected virtual void ParseProperties()
         {
             var properties = GetType().GetProperties().Where(p => typeof(IProperty).IsAssignableFrom(p.PropertyType)).ToList();
             var propertyTuples = new List<Tuple<PropertyDescription, PropertyInfo>>();

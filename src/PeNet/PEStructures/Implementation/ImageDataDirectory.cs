@@ -17,6 +17,17 @@ namespace PeNet.PEStructures.Implementation
             : base(buff, offset) { }
 
         /// <summary>
+        /// Create a new IMAGE_DATA_DIRECTORY object.
+        /// </summary>
+        /// <param name="virtualAddress">Virtual address of the directory entry.</param>
+        /// <param name="size">Size of the directory entry.</param>
+        public ImageDataDirectory(IProperty<uint> virtualAddress, IProperty<uint> size)
+        {
+            VirtualAddress = virtualAddress;
+            Size = size;
+        }
+
+        /// <summary>
         ///     RVA of the table.
         /// </summary>
         [PropertyDescription(valueOffset: 0x00, valueSize: 0x04)]

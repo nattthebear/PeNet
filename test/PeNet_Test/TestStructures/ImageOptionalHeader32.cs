@@ -34,6 +34,13 @@ namespace PeNet_Test.TestStructures
         public IProperty<ulong> SizeOfHeapReserve => new PropertyULong(0x50, 4, 0x11223344);
         public IProperty<ulong> SizeOfHeapCommit => new PropertyULong(0x54, 4, 0x55667788);
         public IProperty<uint> LoaderFlags => new PropertyUInt(0x58, 0x99aabbcc);
-        public IProperty<uint> NumberOfRvaAndSizes => new PropertyUInt(0x5c, 0xddeeff00);
+        public IProperty<uint> NumberOfRvaAndSizes => new PropertyUInt(0x5c, 0x00000004);
+        public IProperty<IProperty<IImageDataDirectory>[]> DataDirectories => new PropertyDataDirectoryArray(0x60, 4*0x8, new[]
+        {
+            new PropertyDataDirectory(0x60, new PeNet.PEStructures.Implementation.ImageDataDirectory(new PropertyUInt(0x0, 0x00112233), new PropertyUInt(0x4, 0x44556677))),
+            new PropertyDataDirectory(0x68, new PeNet.PEStructures.Implementation.ImageDataDirectory(new PropertyUInt(0x0, 0x8899aabb), new PropertyUInt(0x4, 0xccddeeff))),
+            new PropertyDataDirectory(0x70, new PeNet.PEStructures.Implementation.ImageDataDirectory(new PropertyUInt(0x0, 0x11223344), new PropertyUInt(0x4, 0x55667788))),
+            new PropertyDataDirectory(0x78, new PeNet.PEStructures.Implementation.ImageDataDirectory(new PropertyUInt(0x0, 0x99aabbcc), new PropertyUInt(0x4, 0xddeeff00)))
+        });
     }
 }

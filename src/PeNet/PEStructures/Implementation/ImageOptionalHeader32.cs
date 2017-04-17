@@ -200,5 +200,21 @@ namespace PeNet.PEStructures.Implementation
         /// </summary>
         [PropertyDescription(valueOffset: 0x5c, valueSize: 0x04)]
         public IProperty<uint> NumberOfRvaAndSizes { get; private set; }
+
+        /// <summary>
+        ///     Array of data directory structures. At most 16 entries.
+        /// </summary>
+        public IProperty<IProperty<IImageDataDirectory>[]> DataDirectories { get; private set; }
+
+        /// <summary>
+        /// Parse and set all properties which implement the
+        /// IProperty interface in the PE structure.
+        /// </summary>
+        protected override void ParseProperties()
+        {
+            base.ParseProperties();
+
+            DataDirectories = new PropertyDataDirectoryArray(_buffer, _structOffset, 0x60, NumberOfRvaAndSizes.Value * 0x8);
+        }
     }
 }
