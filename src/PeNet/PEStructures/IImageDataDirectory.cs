@@ -11,11 +11,11 @@ namespace PeNet.PEStructures
         /// <summary>
         ///     RVA of the table.
         /// </summary>
-        IProperty<uint> VirtualAddress { get; }
+        IValueType<uint> VirtualAddress { get; }
 
         /// <summary>
         ///     Table size in bytes.
         /// </summary>
-        IProperty<uint> Size { get; }
+        IValueType<uint> Size { get; }
     }
 }

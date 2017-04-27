@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace PeNet.PropertyTypes
 {
     /// <summary>
     /// Represents a standard property in the header structures.
     /// </summary>
-    public abstract class Property<TValue> : IProperty<TValue>
+    public class ValueType<TValue> : IValueType<TValue>
+        where TValue : struct
     {
         /// <summary>
         /// Buffer containing the PE header.
@@ -21,7 +23,7 @@ namespace PeNet.PropertyTypes
         /// <summary>
         /// Offset of the property in on disk.
         /// </summary>
-        public uint ValueOffset { get; }
+        public uint RawOffset { get; }
 
         /// <summary>
         /// Size of the value type in bytes.
@@ -40,10 +42,10 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="value">The value of the property.</param>
-        protected Property(uint valueOffset, uint size, TValue value)
+        public ValueType(uint valueOffset, uint size, TValue value)
         {
             Size = size;
-            ValueOffset = valueOffset;
+            RawOffset = valueOffset;
             Value = value;
         }
 
@@ -56,12 +58,12 @@ namespace PeNet.PropertyTypes
         /// to which the property belongs.</param>
         /// <param name="size">Size of the value type in bytes.</param>
         /// <param name="buffer">Buffer containing a PE structure.</param>
-        protected Property(byte[] buffer, uint structOffset, uint valueOffset, uint size)
+        protected ValueType(byte[] buffer, uint structOffset, uint valueOffset, uint size)
         {
             Size = size;
             _buffer = buffer;
             _structOffset = structOffset;
-            ValueOffset = valueOffset;
+            RawOffset = valueOffset;
         }
 
 
@@ -85,9 +87,9 @@ namespace PeNet.PropertyTypes
         /// </summary>
         /// <param name="other">Property object to compare with.</param>
         /// <returns>True if equal, else false.</returns>
-        public virtual bool Equals(IProperty<TValue> other)
+        public virtual bool Equals(IValueType<TValue> other)
         {
-            return ValueOffset == other.ValueOffset
+            return RawOffset == other.RawOffset
                    && Size == other.Size
                    && Value.Equals(other.Value);
         }
@@ -101,7 +103,7 @@ namespace PeNet.PropertyTypes
         /// <returns>True if equal, else false.</returns>
         public override bool Equals(object obj)
         {
-            return Equals(obj as IProperty<TValue>);
+            return Equals(obj as IValueType<TValue>);
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace PeNet.PropertyTypes
             unchecked
             {
                 var hashCode = Value.GetHashCode();
-                hashCode = (hashCode * 397) ^ ValueOffset.GetHashCode();
+                hashCode = (hashCode * 397) ^ RawOffset.GetHashCode();
                 hashCode = (hashCode * 397) ^ (int) Size;
                 hashCode = (hashCode * 397) ^ EqualityComparer<TValue>.Default.GetHashCode(Value);
                 return hashCode;
@@ -136,9 +138,9 @@ namespace PeNet.PropertyTypes
             if (other == null)
                 return 1;
 
-            if (ValueOffset == other.ValueOffset)
+            if (RawOffset == other.RawOffset)
                 return 0;
-            if (ValueOffset < other.ValueOffset)
+            if (RawOffset < other.RawOffset)
                 return -1;
             return 1;
         }
@@ -149,7 +151,7 @@ namespace PeNet.PropertyTypes
         /// <param name="p1">A property.</param>
         /// <param name="p2">Another property.</param>
         /// <returns>True if the properties are equal, else false.</returns>
-        public static bool operator ==(Property<TValue> p1, Property<TValue> p2)
+        public static bool operator ==(ValueType<TValue> p1, ValueType<TValue> p2)
         {
             return p1.Equals(p2);
         }
@@ -160,7 +162,7 @@ namespace PeNet.PropertyTypes
         /// <param name="p1">A property.</param>
         /// <param name="p2">Another property.</param>
         /// <returns>True if the properties are not equal, else false.</returns>
-        public static bool operator !=(Property<TValue> p1, Property<TValue> p2)
+        public static bool operator !=(ValueType<TValue> p1, ValueType<TValue> p2)
         {
             return !p1.Equals(p2);
         }

@@ -11,7 +11,7 @@ namespace PeNet.PropertyTypes
         /// <summary>
         /// Offset of the property in on disk.
         /// </summary>
-        uint ValueOffset { get; }
+        uint RawOffset { get; }
 
         /// <summary>
         /// Size of the value type in bytes.
@@ -24,18 +24,5 @@ namespace PeNet.PropertyTypes
         /// </summary>
         /// <returns>Property value as a byte array.</returns>
         byte[] ToBytes();
-    }
-
-
-    /// <summary>
-    /// Represents a standard property in the header structures.
-    /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    public interface IProperty<TValue> : IProperty, IEquatable<IProperty<TValue>>
-    {
-        /// <summary>
-        /// The value of the property.
-        /// </summary>
-        TValue Value { get; set; }
     }
 }

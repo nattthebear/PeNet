@@ -3,9 +3,9 @@ using PeNet.PropertyTypes;
 
 namespace PeNet_Test.TestStructures
 {
-    public class ImageDataDirectory : PEStructure, IImageDataDirectory
+    public class ImageDataDirectory : IImageDataDirectory
     {
-        public IProperty<uint> VirtualAddress => new PropertyUInt(0x00, 0x00112233);
-        public IProperty<uint> Size => new PropertyUInt(0x04, 0x44556677);
+        public IValueType<uint> VirtualAddress => new ValueType<uint>(0x00, sizeof(uint), 0x00112233);
+        public IValueType<uint> Size => new ValueType<uint>(0x04, sizeof(uint), 0x44556677);
     }
 }

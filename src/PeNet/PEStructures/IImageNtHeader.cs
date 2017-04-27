@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PeNet.PropertyTypes;
+﻿using PeNet.PropertyTypes;
 
 namespace PeNet.PEStructures
 {
@@ -14,16 +11,16 @@ namespace PeNet.PEStructures
         /// <summary>
         ///     Access to the File header.
         /// </summary>
-        IProperty<IImageFileHeader> FileHeader { get; }
+        IComplexType<IImageFileHeader> FileHeader { get; }
 
         /// <summary>
         ///     Access to the Optional header.
         /// </summary>
-        IProgress<IImageOptionalHeader> OptionalHeader { get; }
+        IComplexType<IImageOptionalHeader> OptionalHeader { get; }
 
         /// <summary>
         ///     NT header signature.
         /// </summary>
-        IProperty<uint> Signature { get; }
+        IValueType<uint> Signature { get; }
     }
 }
